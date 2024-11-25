@@ -18,7 +18,7 @@ interface ReceitaCardProps {
   setShowCard: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ReceitaCard: React.FC<ReceitaCardProps> = ({ receita, onEdit, onDelete, showCard, setShowCard }) => {
+const ReceitaCard: React.FC<ReceitaCardProps> = ({ receita, onEdit, onDelete, setShowCard }) => {
   const handleCloseCard = () => {
     setShowCard(false);
   };

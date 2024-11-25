@@ -103,23 +103,25 @@ const ReceitasPage = () => {
   };
 
   const handleChangeItem = (
-    index: number, 
-    field: 'nome' | 'quantidade' | 'tipo', 
-    value: string | number | string
+    index: number,
+    field: 'nome' | 'quantidade' | 'tipo',
+    value: string | number
   ) => {
-    const newLista = lista.map((item, i) =>
-      i === index
-        ? field === 'nome'
-          ? value !== ''
-            ? [value, item[1], item[2]] // Atualiza o nome
-            : item
-          : field === 'quantidade'
-          ? [item[0], parseFloat(value as string), item[2]] // Atualiza a quantidade
-          : [item[0], item[1], value] // Atualiza o tipo
-        : item
-    );
-    setLista(newLista);
+    const newLista: [string, number, string][] = lista.map((item, i) => {
+      if (i === index) {
+        if (field === 'nome') {
+          return [value as string, item[1], item[2]]; // Atualiza o nome
+        } else if (field === 'quantidade') {
+          return [item[0], typeof value === 'number' ? value : parseFloat(value as string), item[2]]; // Atualiza a quantidade
+        } else if (field === 'tipo') {
+          return [item[0], item[1], value as string]; // Atualiza o tipo
+        }
+      }
+      return item; // Retorna o item original se não for o índice correspondente
+    });
+    setLista(newLista); // Atualiza o estado com a nova lista
   };
+  
 
   const handleRemoveItem = (index: number) => {
     const newLista = lista.filter((_, i) => i !== index);
